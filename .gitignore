@@ -1,0 +1,8 @@
+build/
+signing/
+*.jks
+*.keystore
+*.p12
+*.pfx
+*.key
+release.env
