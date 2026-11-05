@@ -33,7 +33,7 @@ official app ── reads the playing song's ID ──► Music Relay ── LAN
 ## Features
 
 - **Mirror mode** — skip, pause or seek in the phone's music app and the player follows within a second; the phone mutes itself.
-- **Supported apps** — Apple Music, QQ Music, NetEase Cloud Music. Choose which ones appear, or let "Auto" follow whichever is playing.
+- **Supported apps** — Apple Music, Apple Music Classical, QQ Music, NetEase Cloud Music. Classical plays through Apple Music on the player (same catalog), so the player only needs Apple Music. Choose which ones appear, or let "Auto" follow whichever is playing.
 - **Notification controls** — the ongoing notification has ⏮ ⏯ ⏭ buttons on both devices; the phone's also has "Stop mirroring".
 - **Quick Settings tile** — switch mirroring (phone) or the player (receiver) on and off like a VPN toggle.
 - **Play queue** and **player volume** (locked at max by default to avoid digital attenuation).

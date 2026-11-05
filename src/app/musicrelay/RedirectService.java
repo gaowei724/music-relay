@@ -527,7 +527,8 @@ public class RedirectService extends Service {
     }
 
     // app null: the player applies the command to every supported app (used by close).
-    private void sendTo(String cmd, String val, String app) {
+    private void sendTo(String cmd, String val, String phoneApp) {
+        String app = phoneApp == null ? null : AgentService.playerApp(phoneApp);
         if (!paired()) {
             setHealth(ERROR);
             return;
@@ -568,7 +569,7 @@ public class RedirectService extends Service {
     private long tabletPos(String app) {
         if (!paired()) return -1;
         try {
-            HttpURLConnection h2 = Tls.open(this, "/state?app=" + app);
+            HttpURLConnection h2 = Tls.open(this, "/state?app=" + AgentService.playerApp(app));
             h2.setConnectTimeout(3000);
             h2.setReadTimeout(6000);
             if (h2.getResponseCode() != 200) {

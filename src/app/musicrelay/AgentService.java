@@ -319,6 +319,7 @@ public class AgentService extends Service {
                 send(out, 401, "application/json", "{\"error\":\"unauthorized\"}".getBytes());
                 return;
             }
+            if (args.containsKey("app")) args.put("app", playerApp(args.get("app")));
             if (path.equals("/art")) {
                 byte[] png = art(args.get("app"));
                 if (png == null) send(out, 404, "text/plain", new byte[0]);
@@ -542,15 +543,24 @@ public class AgentService extends Service {
     static final String NETEASE = "com.netease.cloudmusic";
     // QQ音乐HD: not supported (its media ids are local and it cannot play a song by id).
     static final String QQ_HD = "com.tencent.qqmusicpad";
-    static final String[] APPS = {AM, QQ, NETEASE};
+    // Apple Music Classical uses the Apple Music catalog (its media ids are Apple Music song
+    // ids), so the player plays its songs in Apple Music.
+    static final String CLASSICAL = "com.apple.android.music.classical";
+    static final String[] APPS = {AM, CLASSICAL, QQ, NETEASE};
 
     static boolean supported(String pkg) {
         for (String a : APPS) if (a.equals(pkg)) return true;
         return false;
     }
 
+    // The app on the player that plays what the phone's app plays.
+    static String playerApp(String pkg) {
+        return CLASSICAL.equals(pkg) ? AM : pkg;
+    }
+
     static String label(String pkg) {
-        return QQ.equals(pkg) ? "QQ音乐" : NETEASE.equals(pkg) ? "网易云音乐" : "Apple Music";
+        return QQ.equals(pkg) ? "QQ音乐" : NETEASE.equals(pkg) ? "网易云音乐"
+                : CLASSICAL.equals(pkg) ? "Apple Music 古典乐" : "Apple Music";
     }
 
     private MediaController session() {

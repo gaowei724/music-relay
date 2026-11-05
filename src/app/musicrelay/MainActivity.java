@@ -802,7 +802,8 @@ public class MainActivity extends Activity {
             for (int i = 0; i < opts.size(); i++) {
                 String pkg = opts.get(i);
                 TextView c = chip(RedirectService.AUTO.equals(pkg) ? "自动"
-                        : AgentService.NETEASE.equals(pkg) ? "网易云" : AgentService.label(pkg),
+                        : AgentService.NETEASE.equals(pkg) ? "网易云"
+                        : AgentService.CLASSICAL.equals(pkg) ? "古典乐" : AgentService.label(pkg),
                         pkg.equals(cur));
                 c.setOnClickListener(v -> {
                     RedirectService.setSource(this, pkg);
@@ -1255,7 +1256,7 @@ public class MainActivity extends Activity {
     // Null in auto mode: the player then uses whichever app is playing.
     private String appArg() {
         String s = RedirectService.source(this);
-        return RedirectService.AUTO.equals(s) ? null : s;
+        return RedirectService.AUTO.equals(s) ? null : AgentService.playerApp(s);
     }
 
     private String withApp(String path) {
